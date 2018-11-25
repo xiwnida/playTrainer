@@ -1,0 +1,63 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 114, in script
+    call screen main_menu_screen
+  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/script.rpy", line 37, in execute
+    screen main_menu_screen:
+  File "game/script.rpy", line 37, in execute
+    screen main_menu_screen:
+  File "game/script.rpy", line 56, in execute
+    if cub_gold>0:
+NameError: name 'cub_gold' is not defined
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 114, in script
+    call screen main_menu_screen
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1801, in execute
+    self.call("execute")
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1789, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\statements.py", line 169, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in interact_core
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 401, in visit_all
+    callback(self)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in <lambda>
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 411, in per_interact
+    self.update()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 592, in update
+    self.screen.function(**self.scope)
+  File "game/script.rpy", line 37, in execute
+    screen main_menu_screen:
+  File "game/script.rpy", line 37, in execute
+    screen main_menu_screen:
+  File "game/script.rpy", line 56, in execute
+    if cub_gold>0:
+  File "<screen language>", line 56, in <module>
+NameError: name 'cub_gold' is not defined
+
+Windows-7-6.1.7601-SP1
+Ren'Py 6.99.14.1.3218
+PlayTrainer 1.0
+Mon Nov 26 00:59:38 2018
