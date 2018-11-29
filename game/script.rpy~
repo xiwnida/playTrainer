@@ -843,7 +843,6 @@ label in_menu:
         $ cub_gold=3
     elif cub_wis>4 and cub_mem>4 and cub_mat>4 and cub_mat+cub_mem+cub_wis!=18:
         $ cub_gold=5
-label in_menu_stop:
     $ right_num=0
     $ circle_num=0
     $ zagadki_round=[]
@@ -854,4 +853,10 @@ label in_menu_stop:
     
     jump game_start
         
+label in_menu_stop:
+    $ right_num=0
+    $ circle_num=0
+    $ zagadki_round=[]
+    jump game_start
+    
 label exit:
