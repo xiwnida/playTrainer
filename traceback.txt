@@ -1,30 +1,32 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/script.rpy", line 257, in script
-    show expression "right_"+right_num+'.png'
-  File "game/script.rpy", line 257, in <module>
-    show expression "right_"+right_num+'.png'
-TypeError: coercing to Unicode: need string or buffer, int found
+After initialization, but before game start.
+  File "game/screens.rpy", line 426, in prepare_screen
+    screen file_slots(title):
+  File "game/screens.rpy", line 426, in prepare
+    screen file_slots(title):
+Exception: A screen named game_menu does not exist.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 257, in script
-    show expression "right_"+right_num+'.png'
-  File "D:\renpy-7.1.3-sdk\renpy\ast.py", line 1150, in execute
-    show_imspec(self.imspec, atl=getattr(self, "atl", None))
-  File "D:\renpy-7.1.3-sdk\renpy\ast.py", line 1106, in show_imspec
-    expression = renpy.python.py_eval(expression)
-  File "D:\renpy-7.1.3-sdk\renpy\python.py", line 1944, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "D:\renpy-7.1.3-sdk\renpy\python.py", line 1937, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/script.rpy", line 257, in <module>
-    show expression "right_"+right_num+'.png'
-TypeError: coercing to Unicode: need string or buffer, int found
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\bootstrap.py", line 306, in bootstrap
+    renpy.main.main()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 523, in main
+    run(restart)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 90, in run
+    renpy.display.screen.prepare_screens()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 873, in prepare_screens
+    s.ast.prepare_screen()
+  File "game/screens.rpy", line 426, in prepare_screen
+    screen file_slots(title):
+  File "game/screens.rpy", line 426, in prepare
+    screen file_slots(title):
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\sl2\slast.py", line 1592, in prepare
+    raise Exception("A screen named {} does not exist.".format(self.target))
+Exception: A screen named game_menu does not exist.
 
-Windows-8-6.2.9200
-Ren'Py 7.1.3.1092
+Windows-7-6.1.7601-SP1
+Ren'Py 6.99.14.1.3218
 PlayTrainer 1.0
-Wed Nov 28 10:04:12 2018
+Thu Nov 29 02:21:37 2018

@@ -247,12 +247,13 @@ label start_game2:   # Метка для перехода, если игрок �
 
     
 label matem:
-    scene menu_down with dissolve
+    scene menu_down
     show matema_text with dissolve
     call screen matema_text
 label matema2:
     hide matema_text 
     show matema_board
+    show expression "right_"+str(right_num)+'.png'
     with dissolve
     while circle_num<5:
         $matematika()
@@ -305,10 +306,15 @@ label matema2:
         label matema_decide:
     
             if answer==right_answer:
-                "Верно!"
                 $ right_num+=1
+                show expression "right_"+str(right_num)+'.png'
+                show right with dissolve
+                $renpy.pause(1)
+                hide right with dissolve
             else:
-                "Неверно!"
+                show wrong with dissolve
+                $renpy.pause(1)
+                hide wrong with dissolve
             $ answer=''
             $ circle_num+=1
     if right_answer>=3 and cub_mat==0:
@@ -316,6 +322,7 @@ label matema2:
     if first_game==False:
         $cub_bronz=1
         $ first_game=True
+    $ circle_num=0
     jump game_start
 label lamps:
     "бубу"
