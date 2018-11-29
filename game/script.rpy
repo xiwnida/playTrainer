@@ -154,6 +154,13 @@ screen zagadka_text:
         hover "text1_hover"
         focus_mask True
         action Play("sound", "music/book2.ogg"), Jump("zagadki2")
+
+screen good:
+    imagebutton:
+        idle "text1_idle"
+        hover "text1_hover"
+        focus_mask True
+        action Play("sound", "music/book2.ogg"), Jump("game_start")
         
 #==============================================================ЭКРАН НАВИГАЦИИ ПО ГЛАВНОМУ МЕНЮ=========
         
@@ -185,7 +192,7 @@ screen main_menu_screen:
         hover 'exit_hover.png'
         focus_mask True
         hovered Play('sound', 'music/select.wav')
-        action Jump('exit')
+        action Quit(confirm=not main_menu)
     
     if cub_gold>0:
         imagebutton:
@@ -836,10 +843,20 @@ label in_menu:
         $ cub_gold=3
     elif cub_wis>4 and cub_mem>4 and cub_mat>4 and cub_mat+cub_mem+cub_wis!=18:
         $ cub_gold=5
+    $ right_num=0
+    $ circle_num=0
+    $ zagadki_round=[]
+    scene menu_down
+    show good 
+    with dissolve
+    call screen good
+    
+    jump game_start
+        
 label in_menu_stop:
     $ right_num=0
     $ circle_num=0
     $ zagadki_round=[]
     jump game_start
-        
+    
 label exit:
