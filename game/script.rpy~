@@ -837,12 +837,15 @@ label zagadki2:
 #=========================================================================================ВОЗВРАЩЕНИЕ В МЕНЮ========ОБНУЛЕНИЕ ПЕРЕМЕНЫННЫХ=========
     
 label in_menu:
-    if cub_wis>0 and cub_wis<3 and cub_mem>0 and cub_mem<3 and cub_mat>0 and cub_mat<3:
-        $ cub_gold=1
-    elif cub_wis>2 and cub_wis<5 and cub_mem>2 and cub_mem<5 and cub_mat>2 and cub_mat<5:
-        $ cub_gold=3
-    elif cub_wis>4 and cub_mem>4 and cub_mat>4 and cub_mat+cub_mem+cub_wis!=18:
+    if cub_mat+cub_mem+cub_wis==18:
+        pass
+    elif cub_wis>4 and cub_mem>4 and cub_mat>4:
         $ cub_gold=5
+    elif cub_wis>2 and cub_mem>2 and cub_mat>2:
+        $ cub_gold=3
+    elif cub_wis>0 and cub_mem>0  and cub_mat>0:
+        $ cub_gold=1
+    
     $ right_num=0
     $ circle_num=0
     $ zagadki_round=[]

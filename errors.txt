@@ -2,10 +2,21 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 845: invalid syntax
-    cub_gold=5:
-               ^
-    
+File "game/script.rpy", line 722: end of line expected.
+    hide expression 'stop_idle.png':
+                                   ^
 
-Ren'Py Version: Ren'Py 7.1.3.1092
-Thu Nov 29 12:01:28 2018
+File "game/script.rpy", line 773: end of line expected.
+    hide expression 'stop_idle.png':
+                                   ^
+
+File "game/script.rpy", line 813: end of line expected.
+    hide expression 'stop_idle.png':
+                                   ^
+
+File "game/script.rpy", line 861: end of line expected.
+    hide expression 'stop_idle.png':
+                                   ^
+
+Ren'Py Version: Ren'Py 6.99.14.1.3218
+Sun Dec 02 23:12:46 2018

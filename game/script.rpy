@@ -115,52 +115,65 @@ init:
 # Экраны
 screen text1:
     imagebutton:
+        xpos 834 ypos 530
         idle "text1_idle"
         hover "text1_hover"
-        focus_mask True
         action Play("sound", "music/book2.ogg"), Jump("text2")
         
 screen text2:
     imagebutton:
-        idle "text2_idle"
-        hover "text2_hover"
-        focus_mask True
+        xpos 941 ypos 490
+        idle "text1_idle"
+        hover "text1_hover"
         action Play("sound", "music/book2.ogg"), Jump("text3")
 
 screen text3:
     imagebutton:
+        xpos 484 ypos 498
         idle "text3_idle"
         hover "text3_hover"
-        focus_mask True
         action Play("sound", "music/book2.ogg"), Jump("game_start")
         
 screen matema_text:
     imagebutton:
+        xpos 834 ypos 530
         idle "text1_idle"
         hover "text1_hover"
-        focus_mask True
         action Play("sound", "music/book2.ogg"), Jump("matema2")
         
 screen lamp_text:
     imagebutton:
+        xpos 834 ypos 530
         idle "text1_idle"
         hover "text1_hover"
-        focus_mask True
         action Play("sound", "music/book2.ogg"), Jump("lamps2")
         
 screen zagadka_text:
     imagebutton:
+        xpos 834 ypos 530
         idle "text1_idle"
         hover "text1_hover"
-        focus_mask True
         action Play("sound", "music/book2.ogg"), Jump("zagadki2")
 
 screen good:
     imagebutton:
+        xpos 834 ypos 530
         idle "text1_idle"
         hover "text1_hover"
-        focus_mask True
         action Play("sound", "music/book2.ogg"), Jump("game_start")
+        
+screen again:
+    imagebutton:
+        xpos 286 ypos 488
+        idle "again_no_idle"
+        hover "again_no_hover"
+        action Jump("start_game2")
+       
+    imagebutton:
+        xpos 778 ypos 488
+        idle "again_yes_idle"
+        hover "again_yes_hover"
+        action Jump("again_yes")
         
 #==============================================================ЭКРАН НАВИГАЦИИ ПО ГЛАВНОМУ МЕНЮ=========
         
@@ -193,6 +206,13 @@ screen main_menu_screen:
         focus_mask True
         hovered Play('sound', 'music/select.wav')
         action Quit(confirm=not main_menu)
+        
+    imagebutton:
+        idle 'again_idle.png'
+        hover 'again_hover.png'
+        focus_mask True
+        hovered Play('sound', 'music/select.wav')
+        action Jump("again")
     
     if cub_gold>0:
         imagebutton:
@@ -328,15 +348,15 @@ screen matema_number:
         action Jump("zero")
         
     imagebutton:
+        xpos 833 ypos 251
         idle "matema_idle.png"
         hover "matema_hover.png"
-        focus_mask True
         action Jump("matema_decide")
         
     imagebutton:
+        xpos 1014 ypos 606
         idle 'stop_idle.png'
         hover 'stop_hover.png'
-        focus_mask True
         action Play("sound", "music/cancel.wav"), Jump('in_menu_stop')
         
 #==============================================================ЭКРАН НАВИГАЦИИ ПО ЛАМПАМ=======
@@ -367,9 +387,9 @@ screen lamps:
         action Jump('lamp4')
         
     imagebutton:
+        xpos 1014 ypos 606
         idle 'stop_idle.png'
         hover 'stop_hover.png'
-        focus_mask True
         action Play("sound", "music/cancel.wav"), Jump('in_menu_stop')
         
 #==============================================================ЭКРАН НАВИГАЦИИ ПО ЗАГАДКАМ=======
@@ -400,9 +420,9 @@ screen zagadki():
         action Jump('zagadka4')
         
     imagebutton:
+        xpos 1014 ypos 606
         idle 'stop_idle.png'
         hover 'stop_hover.png'
-        focus_mask True
         action Play("sound", "music/cancel.wav"), Jump('in_menu_stop')
         
 #==============================================================================ВСТУПЛЕНИЕ====
@@ -428,6 +448,9 @@ label game_start:
 #==============================================================================КУБКИ
     
     scene menu_cubs   # Сначала меню с кнопками, если вдруг нужно получить кубок
+    
+    show exit_idle
+    show again_idle
 
     if cub_priz_gold:   # Показать все изображения кубков, если они уже были получены ранее
         show cub_priz_gold
@@ -556,6 +579,8 @@ label game_start:
     
 label start_game2:   # Метка для перехода, если игрок нажимает на кубки
     scene menu_main
+    hide exit_idle
+    hide again_idle
     call screen main_menu_screen  # Вызов основного экрана, который отвечает за навигацию по меню
     
 #==============================================================СЛОЖЕНИЕ===И===ВЫЧИТАНИЕ====
@@ -569,8 +594,10 @@ label matema2:
     hide matema_text 
     show matema_board
     show expression "right_"+str(right_num)+'.png'
+    show expression "game"+str(circle_num+1)+'.png'
     with dissolve
     while circle_num<5:
+        show expression "game"+str(circle_num+1)+'.png'
         $matematika()
         show expression num1+'.png':
             xpos 320 ypos 100
@@ -582,6 +609,8 @@ label matema2:
             xpos 704 ypos 100
         label matema3:
             hide expression answer+'.png '
+            hide expression 'stop_idle.png'
+            hide matema_idle
             if answer:
                 show expression answer+'.png ':
                     xpos 822 ypos 100
@@ -619,6 +648,10 @@ label matema2:
             jump matema3
     
         label matema_decide:
+            show expression 'stop_idle.png':
+                xpos 1014 ypos 606
+            show matema_idle:
+                xpos 833 ypos 251
     
             if answer==right_answer:
                 $ right_num+=1
@@ -666,9 +699,13 @@ label lamps2:
     show right_answer
     show expression 'right_'+str(right_num)+'.png'
     show expression 'stop.png'
+    show expression 'stop_idle.png':
+        xpos 1014 ypos 606
+    show expression "game"+str(circle_num+1)+'.png'
     with dissolve
     
     while circle_num !=5:
+        show expression "game"+str(circle_num+1)+'.png'
         show lamp_look 
         $renpy.pause(0.5)
         while lamp_circle != circle_num+1: # Зажигает от одной до пяти ламп в зависимости от уровня внешнего цикла
@@ -683,6 +720,7 @@ label lamps2:
         
         while lamp_circle2 !=circle_num+1: # Позволяет пользователю одну за другой нажимать лампы. В случае ошибки обрывает цикл.
             hide lamps
+            hide expression 'stop_idle.png'
             
             call screen lamps
 
@@ -704,6 +742,8 @@ label lamps2:
                 jump lamp5
         
             label lamp5:
+                show expression 'stop_idle.png':
+                    xpos 1014 ypos 606
                 if choosen_lamp==lamp_storage[lamp_circle2]:
                     $ lamp_circle2+=1
                     show expression 'lamp_on'+str(choosen_lamp) with dissolve
@@ -732,6 +772,8 @@ label lamps2:
         $lamp_storage=[]
         $renpy.pause(0.5)
         hide lamp_go
+        
+    hide expression 'stop_idle.png'
 
     if right_num>=5 and cub_mem<5:
         $cub_mem=5
@@ -762,12 +804,17 @@ label zagadki2:
     hide zagadka_text
     show zagadka_board
     show right_answer
+    show expression 'stop_idle.png':
+        xpos 1014 ypos 606
     show expression 'right_'+str(right_num)+'.png'
+    show expression "game"+str(circle_num+1)+'.png'
     with dissolve
     $ zagadki()
     while circle_num !=5:
         $ answers()
+        show expression "game"+str(circle_num+1)+'.png'
         show expression 'zagadka_'+str(zagadki_round[circle_num])+'.png'
+        hide expression 'stop_idle.png'
         
         call screen zagadki
             
@@ -793,6 +840,8 @@ label zagadki2:
                 xpos 664 ypos 353
             show expression 'otvet_'+str(zagadki_answers[3])+'.png':
                 xpos 664 ypos 499
+            show expression 'stop_idle.png':
+                xpos 1014 ypos 606
                 
             if zagadka_answer==zagadki_round[circle_num]:
                 $ right_num+=1
@@ -814,6 +863,7 @@ label zagadki2:
         hide expression 'otvet_'+str(zagadki_answers[1])+'.png'
         hide expression 'otvet_'+str(zagadki_answers[2])+'.png'
         hide expression 'otvet_'+str(zagadki_answers[3])+'.png'
+        hide expression 'stop_idle.png'
 
     if right_num>=5 and cub_wis<5:
         $cub_wis=5
@@ -862,4 +912,35 @@ label in_menu_stop:
     $ zagadki_round=[]
     jump game_start
     
-label exit:
+label again:
+    scene menu_down
+    show again_board
+    call screen again
+    with dissolve
+    
+label again_yes:
+    $ cub_bronz=0
+    $ cub_priz_bronz=False
+    $ cub_priz_silver=False
+    $ cub_priz_gold=False
+    $ cub_mat=0
+    $ cub_mat_bronz=False
+    $ cub_mat_silver=False
+    $ cub_mat_gold=False
+    $ cub_mem=0
+    $ cub_mem_bronz=False
+    $ cub_mem_silver=False
+    $ cub_mem_gold=False
+    $ cub_wis=0
+    $ cub_wis_bronz=False
+    $ cub_wis_silver=False
+    $ cub_wis_gold=False
+    $ cub_gold=0
+    $ cub_win_bronz=False
+    $ cub_win_silver=False
+    $ cub_win_gold=False
+    $ first_game=0
+    $ mat=False
+    $ mem=False
+    $ zag=False
+    jump start_game2
